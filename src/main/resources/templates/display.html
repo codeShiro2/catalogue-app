@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <h2>Products</h2>
+
+    <form action="/display" method="get">
+        <input type="text" name="category" placeholder="Filter by category" th:value="${category}">
+        <button type="submit">Filter</button>
+        <a href="/display">Show all</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+        <tr th:each="p : ${products}">
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.category}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(products)}">
+            <td colspan="3">No products found.</td>
+        </tr>
+    </table>
+
+    <h2>Feedback</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>product Name</th>
+            <th>Feedback</th>
+        </tr>
+        <tr th:each="f : ${feedbacks}">
+            <td th:text="${f.name}"></td>
+            <td th:text="${f.productName}"></td>
+            <td th:text="${f.feedback}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(feedbacks)}">
+            <td colspan="3">No feedback yet.</td>
+        </tr>
+    </table>
+
+    <p><a href="/feedback">Give Feedback</a> | <a href="/add">Add Product</a> | <a href="/">Home</a></p>
+</body>
+</html>
